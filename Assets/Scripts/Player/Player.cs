@@ -7,7 +7,8 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     public PlayerController controller;
-
+    public PlayerConditions condition;
+    public ItemData itemData;
     public Action addItem;
 
     public Transform dropPosition;
@@ -15,5 +16,6 @@ public class Player : MonoBehaviour
     {
         CharacterManager.Instance.Player = this;
         controller = GetComponent<PlayerController>();
+        condition = GetComponent<PlayerConditions>();
     }
 }

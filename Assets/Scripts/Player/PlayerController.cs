@@ -10,8 +10,10 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed;
     public float runSpeed;
     public float jumpPower;
-    public bool IsWalking; // 걷기 상태를 나타내는 불리언 변수
-    public bool IsRunning; // 뛰기 상태를 나타내는 불리언 변수
+    public bool IsWalking;
+    public bool IsRunning; 
+    public bool IsJumping;
+    public float useStamina;
     public Vector2 curMovementInput;
     public LayerMask groundLayerMask;
 
@@ -95,12 +97,31 @@ public class PlayerController : MonoBehaviour
         if (context.phase == InputActionPhase.Performed)
         {
             IsRunning = curMovementInput.y > 0;
+            if (IsRunning)
+            {
+                StartCoroutine(ConsumeStamina());
+            }
+            else
+            {
+                StopCoroutine(ConsumeStamina());
+            }
         }
         else if (context.phase == InputActionPhase.Canceled)
         {
             IsRunning = false;
+            StopCoroutine(ConsumeStamina());
         }
     }
+
+    IEnumerator ConsumeStamina()
+    {
+        while (IsRunning)
+        {
+            CharacterManager.Instance.Player.condition.UseStamina(useStamina);
+            yield return new WaitForSeconds(1f);
+        }
+    }
+
 
     public void OnLook(InputAction.CallbackContext context)
     {
@@ -111,7 +132,8 @@ public class PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started && IsGrounded())
         {
-            _rigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
+            animator.SetTrigger("IsJumping");
+            _rigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);    
         }
     }
 
@@ -128,11 +150,10 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i < rays.Length; i++)
         {
             if (Physics.Raycast(rays[i], 0.1f, groundLayerMask))
-            {
+            {              
                 return true;
             }
         }
-
         return false;
     }
 

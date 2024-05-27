@@ -23,6 +23,10 @@ public class Interaction : MonoBehaviour
     public TextMeshProUGUI promptText;
     private Camera camera;
 
+    [Header("WeaponPrefabs")]
+    public GameObject Rifle;
+    public GameObject Pistol;
+
     void Start()
     {
         camera = Camera.main;
@@ -66,10 +70,28 @@ public class Interaction : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started && curInteractable != null)
         {
+            if (curInteractGameObject.name == "Rifle")
+            {
+                Rifle.gameObject.SetActive(true);
+            }
+            else if (curInteractGameObject.name == "Pistol")
+            {
+                Pistol.gameObject.SetActive(true);
+            }
             curInteractable.OnInteract();
             curInteractGameObject = null;
             curInteractable = null;
             promptText.gameObject.SetActive(false);
+
+            StartCoroutine(SpeedBoostCoroutine(3f));
         }
+    }
+
+    private IEnumerator SpeedBoostCoroutine(float duration)
+    {
+        float originalSpeed = CharacterManager.Instance.Player.controller.runSpeed;
+        CharacterManager.Instance.Player.controller.runSpeed += 5f;
+        yield return new WaitForSeconds(duration);
+        CharacterManager.Instance.Player.controller.runSpeed = originalSpeed;
     }
 }

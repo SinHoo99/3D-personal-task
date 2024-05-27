@@ -27,16 +27,14 @@ public class ItemData : ScriptableObject
     public string displayName;
     public string description;
     public ItemType type;
-   // public Sprite icon;
     public GameObject Prefab;
 
-   // [Header("Stacking")]
-   // public bool canStack;
-   // public int maxStackAmount;
+    //[Header("Stat")]
+    //public int additionalStats;
 
     [Header("Consumable")]
     public ItemDataConsumable[] consumables;
 
-   // [Header("Equip")]
+    // [Header("Equip")]
     //public GameObject equipPrefab;
 }

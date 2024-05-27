@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 287037952960c504c994fba926f42bd1, type: 3}
-  m_Name: ShotGun1 4
+  m_Name: Pistol
   m_EditorClassIdentifier: 
-  displayName: "\uC0F7\uAC744"
-  description: "\uC0F7\uAC744\uC784"
+  displayName: "\uAD8C\uCD1D"
+  description: "[E] \uC7A5\uCC29\uD558\uAE30"
   type: 1
-  Prefab: {fileID: 4256939380644483874, guid: dbe4e8e8e5592604aa1406bce8f4f146, type: 3}
+  Prefab: {fileID: 4828438662016493071, guid: f93bad5d36639e24eacfa1803d264640, type: 3}
+  additionalStats: 0
   consumables: []

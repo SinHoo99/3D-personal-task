@@ -42,18 +42,27 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Lanuch",
+                    "name": "Interact",
                     "type": "Button",
-                    "id": "748784ba-21f2-432f-9df6-26efeac81c49",
+                    "id": "170c8087-8816-4b53-b688-c5c0c119f1b6",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Interact",
+                    "name": "Rifle",
                     "type": "Button",
-                    "id": "170c8087-8816-4b53-b688-c5c0c119f1b6",
+                    "id": "bd5096ea-47f3-4958-abac-be6745b801e3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pistol",
+                    "type": "Button",
+                    "id": "4b500e0c-e632-4db7-ba44-df543efa2192",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -151,23 +160,34 @@
                 },
                 {
                     "name": "",
-                    "id": "0dc3a898-23c6-46b0-8105-0a69d563752a",
-                    "path": "<Keyboard>/f",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Lanuch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "ca58fdac-c0d6-4254-bd8d-b11441ba5246",
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "483caecf-ef4c-45ea-a02f-97dd05f4c877",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rifle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6f38e38a-c982-4492-8603-10f1d9ade26e",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pistol",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

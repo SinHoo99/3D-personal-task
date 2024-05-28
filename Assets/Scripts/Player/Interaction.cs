@@ -73,17 +73,17 @@ public class Interaction : MonoBehaviour
             if (curInteractGameObject.name == "Rifle")
             {
                 Rifle.gameObject.SetActive(true);
+                StartCoroutine(SpeedBoostCoroutine(1f));
             }
             else if (curInteractGameObject.name == "Pistol")
             {
                 Pistol.gameObject.SetActive(true);
+                StartCoroutine(SpeedBoostCoroutine(1f));
             }
             curInteractable.OnInteract();
             curInteractGameObject = null;
             curInteractable = null;
-            promptText.gameObject.SetActive(false);
-
-            StartCoroutine(SpeedBoostCoroutine(3f));
+            promptText.gameObject.SetActive(false);          
         }
     }
 

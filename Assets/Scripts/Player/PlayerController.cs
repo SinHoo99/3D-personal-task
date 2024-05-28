@@ -25,8 +25,6 @@ public class PlayerController : MonoBehaviour
     public float lookSensitivity;
     private Vector2 mouseDelta;
 
-    [Header("Jumping")]
-
     public bool canLook = true;
 
     private Rigidbody _rigidbody;
@@ -46,6 +44,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
+        IsGrounded();
     }
     private void LateUpdate()
     {
@@ -54,7 +53,6 @@ public class PlayerController : MonoBehaviour
             CameraLook();
         }
     }
-
     void Move()
     {
         float currentSpeed = IsRunning ? runSpeed : moveSpeed;
@@ -97,20 +95,16 @@ public class PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            IsRunning = curMovementInput.y > 0;
+            IsRunning = curMovementInput.y > 0 && CharacterManager.Instance.Player.condition.UpdateRunningState();
             if (IsRunning)
             {
-                StartCoroutine(ConsumeStamina());
-            }
-            else
-            {
-                StopCoroutine(ConsumeStamina());
+                StartCoroutine("ConsumeStamina");
             }
         }
         else if (context.phase == InputActionPhase.Canceled)
         {
             IsRunning = false;
-            StopCoroutine(ConsumeStamina());
+            StopCoroutine("ConsumeStamina");
         }
     }
 
@@ -151,10 +145,12 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i < rays.Length; i++)
         {
             if (Physics.Raycast(rays[i], 0.1f, groundLayerMask))
-            {              
+            {
+                animator.SetBool("IsFreefall", false);
                 return true;
             }
         }
+        animator.SetBool("IsFreefall", true);
         return false;
     }
 
@@ -164,6 +160,4 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
         canLook = !toggle;
     }
-
-
 }

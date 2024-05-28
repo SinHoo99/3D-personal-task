@@ -30,11 +30,8 @@ public class PlayerConditions : MonoBehaviour
 
         return true;
     }
-    public void UpdateRunningState(bool isRunning)
+    public bool UpdateRunningState()
     {
-        if (stamina.curValue <= 0)
-        {
-            isRunning = false;
-        }
+        return stamina.curValue >= 10; // 스테미너가 10 이상이면 true 반환, 그렇지 않으면 false 반환
     }
 }

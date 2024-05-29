@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     public bool canLook = true;
 
     private Rigidbody _rigidbody;
-    private Animator animator;
+    public Animator animator;
 
     private void Awake()
     {

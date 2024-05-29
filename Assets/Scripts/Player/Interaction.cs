@@ -27,6 +27,8 @@ public class Interaction : MonoBehaviour
     public GameObject Rifle;
     public GameObject Pistol;
 
+
+
     void Start()
     {
         camera = Camera.main;
@@ -70,21 +72,83 @@ public class Interaction : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started && curInteractable != null)
         {
-            if (curInteractGameObject.name == "Rifle")
+            if (curInteractable is ItemObject)
             {
-                Rifle.gameObject.SetActive(true);
-                StartCoroutine(SpeedBoostCoroutine(1f));
-            }
-            else if (curInteractGameObject.name == "Pistol")
-            {
-                Pistol.gameObject.SetActive(true);
-                StartCoroutine(SpeedBoostCoroutine(1f));
+                CheckItem();
             }
             curInteractable.OnInteract();
             curInteractGameObject = null;
             curInteractable = null;
-            promptText.gameObject.SetActive(false);          
+            promptText.gameObject.SetActive(false);
+            
         }
+    }
+
+    void CheckItem()
+    {
+        ItemData itemData = curInteractGameObject.GetComponent<ItemObject>().data;
+        switch (itemData.type)
+        {
+            case ItemType.Equipable:
+                // 장비 아이템 처리
+                HandleEquipableItem(itemData);
+                break;
+            case ItemType.Consumable:
+                // 소비 아이템 처리
+                HandleConsumableItem(itemData);
+                break;
+            case ItemType.Resource:
+                // 리소스 아이템 처리
+                HandleResourceItem(itemData);
+                break;
+            default:
+                Debug.LogWarning("알 수 없는 아이템 타입입니다.");
+                break;
+        }
+    }
+    void HandleEquipableItem(ItemData itemData)
+    {
+        if (curInteractGameObject.name == "Rifle")
+        {
+            Rifle.gameObject.SetActive(true);
+        }
+        else if (curInteractGameObject.name == "Pistol")
+        {
+            Pistol.gameObject.SetActive(true);
+            StartCoroutine(SpeedBoostCoroutine(1f));
+        }
+        else
+        {
+            Debug.LogWarning("알 수 없는 장비 아이템입니다.");
+        }
+    }
+
+    void HandleConsumableItem(ItemData itemData)
+    {
+        foreach (var consumable in itemData.consumables)
+        {
+            switch (consumable.type)
+            {
+                case ConsumableType.Hunger:
+
+                    break;
+                case ConsumableType.Health:
+
+                    break;
+                case ConsumableType.ZeroGravity:
+
+                    CharacterManager.Instance.Player.condition.ApplyZeroGravity(consumable.value);
+                    break;
+                default:
+                    Debug.LogWarning("알 수 없는 소비 아이템 타입입니다.");
+                    break;
+            }
+        }
+    }
+
+    void HandleResourceItem(ItemData itemData)
+    {
+      
     }
 
     private IEnumerator SpeedBoostCoroutine(float duration)

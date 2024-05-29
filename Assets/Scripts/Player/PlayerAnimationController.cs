@@ -7,6 +7,7 @@ public class PlayerAnimationController : MonoBehaviour
     public Animator animator;
     public GameObject Rifle;
     public GameObject Pistol;
+    public GameObject BackRifle; // 추가된 BackRifle 오브젝트
 
     [Header("PlayerAnimationController Value")]
     float maxWeight = 1; // 최대 가중치
@@ -24,8 +25,6 @@ public class PlayerAnimationController : MonoBehaviour
         if (context.phase == InputActionPhase.Started && CharacterManager.Instance.Player.itemData != null)
         {
             HandleDrawInput(1);
-            Rifle.gameObject.SetActive(true);
-            Pistol.gameObject.SetActive(false);
         }
     }
 
@@ -34,8 +33,6 @@ public class PlayerAnimationController : MonoBehaviour
         if (context.phase == InputActionPhase.Started && CharacterManager.Instance.Player.itemData != null)
         {
             HandleDrawInput(2);
-            Rifle.gameObject.SetActive(false);
-            Pistol.gameObject.SetActive(true);
         }
     }
 
@@ -66,10 +63,22 @@ public class PlayerAnimationController : MonoBehaviour
             animator.SetLayerWeight(layerIndex, Mathf.Max(weight, 0)); // 0 이하로 내려가지 않도록 합니다.
             yield return null;
         }
+
+        // 현재 무기가 비활성화되도록 설정
+        if (layerIndex == 1)
+        {
+            Rifle.SetActive(false);
+            BackRifle.SetActive(true); // 1번 레이어의 가중치가 0이 되면 BackRifle을 활성화
+        }
+        else if (layerIndex == 2)
+        {
+            Pistol.SetActive(false);
+        }
+
         changeCoroutine = null;
     }
 
-    IEnumerator ToggleWeight(int layerIndex)
+    private IEnumerator ToggleWeight(int layerIndex)
     {
         int otherLayerIndex = 3 - layerIndex; // 다른 레이어의 인덱스
 
@@ -89,6 +98,20 @@ public class PlayerAnimationController : MonoBehaviour
             weight += Time.deltaTime * changeSpeed;
             animator.SetLayerWeight(layerIndex, Mathf.Min(weight, maxWeight)); // 최대값을 넘지 않도록 합니다.
             yield return null;
+        }
+
+        // 현재 무기가 활성화되도록 설정
+        if (layerIndex == 1)
+        {
+            Rifle.SetActive(true);
+            BackRifle.SetActive(false); // 1번 레이어의 가중치가 1일 때 BackRifle을 비활성화
+            Pistol.SetActive(false); // 다른 무기는 비활성화
+        }
+        else if (layerIndex == 2)
+        {
+            Pistol.SetActive(true);
+            Rifle.SetActive(false); // 다른 무기는 비활성화
+            BackRifle.SetActive(true); // 2번 레이어의 가중치가 1일 때 BackRifle을 활성화
         }
 
         changeCoroutine = null;

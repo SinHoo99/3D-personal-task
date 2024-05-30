@@ -80,7 +80,7 @@ public class Enemy : MonoBehaviour
         }
         SetState(AIState.Wandering);
         Vector3 targetPosition = GetWanderLocation();
-        CalculateWeightedPath(targetPosition);  // 새로운 방황 위치로 가중치가 적용된 경로 계산
+        agent.SetDestination(GetWanderLocation()); 
     }
 
     Vector3 GetWanderLocation()
@@ -112,38 +112,5 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void CalculateWeightedPath(Vector3 targetPosition)
-    {
-        NavMeshPath path = new NavMeshPath();
-        agent.CalculatePath(targetPosition, path);
-
-        // 각 지점마다 가중치 적용 로직 추가
-        for (int i = 0; i < path.corners.Length; i++)
-        {
-            // 예: 특정 구조물에 가까운 지점은 가중치를 더하여 피하도록 설정
-            if (IsNearObstacle(path.corners[i]))
-            {
-                // 가중치를 추가하여 피하도록 하는 로직 구현
-                Vector3 avoidDirection = (path.corners[i] - transform.position).normalized * 2;
-                path.corners[i] += avoidDirection;
-            }
-        }
-
-        // 최종 경로 설정
-        agent.SetPath(path);
-    }
-
-    private bool IsNearObstacle(Vector3 position)
-    {
-        // 특정 구조물에 가까운지 판단하는 로직 구현
-        Collider[] hitColliders = Physics.OverlapSphere(position, 2.0f);
-        foreach (var hitCollider in hitColliders)
-        {
-            if (hitCollider.CompareTag("Obstacle"))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
+    
 }

@@ -734,8 +734,8 @@ GameObject:
   m_Name: WallPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!65 &529154026
 BoxCollider:
@@ -4180,6 +4180,7 @@ GameObject:
   - component: {fileID: 1190798307}
   - component: {fileID: 1190798306}
   - component: {fileID: 1190798305}
+  - component: {fileID: 1190798309}
   m_Layer: 8
   m_Name: Ground
   m_TagString: Untagged
@@ -4273,6 +4274,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!208 &1190798309
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1190798304}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.25, y: 0.25, z: 0.25}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &1228636373
 GameObject:
   m_ObjectHideFlags: 0
@@ -5935,6 +5952,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4267383618385832579, guid: 759b027595041804b8b8da6c5c37f1db, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267383618385832579, guid: 759b027595041804b8b8da6c5c37f1db, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 7937970758379867690, guid: 759b027595041804b8b8da6c5c37f1db, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -6145,6 +6170,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6338736407768469578, guid: d3eda9a941a80584c9d54b4a8490983d, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6338736407768469578, guid: d3eda9a941a80584c9d54b4a8490983d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 8788252995405561839, guid: d3eda9a941a80584c9d54b4a8490983d, type: 3}
       propertyPath: jumpForce
       value: 300
@@ -6270,6 +6303,14 @@ PrefabInstance:
     - target: {fileID: 7535570133232636853, guid: dee0c5b10d6473242b5a05753489bc34, type: 3}
       propertyPath: m_Name
       value: LaserTrapPlatform
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535570133232636853, guid: dee0c5b10d6473242b5a05753489bc34, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535570133232636853, guid: dee0c5b10d6473242b5a05753489bc34, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
